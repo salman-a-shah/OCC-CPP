@@ -1,0 +1,134 @@
+#include "BST.h"
+
+	//default constructor
+BST::BST()
+{
+	root = NULL;
+}
+
+	//destructor
+BST::~BST()
+{
+	destroyTree(root);
+}
+
+	//destroyTree
+void  BST::destroyTree()
+{
+	destroyTree(root);
+}
+
+//destroy
+void  BST::destroyTree(Node* &p)
+{
+	if (p != NULL)
+	{
+		destroyTree(p->llink);
+		destroyTree(p->rlink);
+		delete p;
+		p = NULL;
+	}
+}
+
+//inorderTraversal
+void BST::inorderTraversal() const
+{
+	if (root == NULL)
+		cerr << "There is no tree.";
+	else
+	{
+		inorderTraversal(root);
+	}
+}
+
+//totalNodes
+int BST::totalNodes() const
+{
+	if (root == NULL)
+		return 0;
+	else
+		return totalNodes(root);
+}
+
+/***************************************************************
+
+	Implement your functions below this line.
+
+***************************************************************/
+
+// Definition function insert
+// Your code here...
+void BST::insert(int item)
+{
+	insert(item, root);
+}
+
+
+// Definition function insert(int, Node*)
+void BST::insert(int item, Node * &p)
+{
+	if (p == NULL) {
+		p = new Node();
+		p->data = item;
+		p->llink = NULL;
+		p->rlink = NULL;
+	}
+	else {
+		if (item == p->data) {
+			cout << "The item to insert is already in the list"
+				<< " - duplicates are not allowed." << endl;
+		}
+		else {
+			(item < p->data) ? insert(item, p->llink) : insert(item, p->rlink);
+		}
+	}
+}
+
+
+
+// Definition function inorderTraversal(Node*)
+// Your code here... 
+void BST::inorderTraversal(Node* node) const
+{
+
+}
+
+
+
+// Definition function treeHeight()
+// Your code here... 
+int BST::treeHeight() const
+{
+	return 0;
+}
+
+
+// Definition function treeHeight(Node*)
+// Your code here... 
+int BST::treeHeight(Node* node) const
+{
+	if (node != NULL) {
+		int left = 1 + treeHeight(node->llink);
+		int right = 1 + treeHeight(node->rlink);
+
+		return ((left > right) ? left : right);
+	}
+
+	return 0;
+}
+
+
+// Definition totalNodes(Node*)
+// Your code here... 
+int BST::totalNodes(Node* node) const
+{
+	if (node != NULL) {
+		return (1 + totalNodes(node->llink) + totalNodes(node->rlink));
+	}
+
+	return 0;
+}
+
+
+
+
